@@ -45,6 +45,8 @@
                 <th>Price</th>
                 <th>Datetime Submitted</th>
                 <th>Total Value</th>
+                <th>Actions</th>
+
             </tr>
         </thead>
         <tbody id="productsTable"></tbody>

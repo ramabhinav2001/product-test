@@ -6,3 +6,5 @@ use App\Http\Controllers\ProductController;
 Route::get('/', [ProductController::class, 'index']);
 Route::get('/products', [ProductController::class, 'list']);
 Route::post('/products', [ProductController::class, 'store']);
+Route::put('/products/{id}', [ProductController::class, 'update']);
+Route::delete('/products/{id}', [ProductController::class, 'destroy']);

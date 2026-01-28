@@ -51,3 +51,44 @@ function fetchProducts() {
             grandTotalEl.textContent = `$${grandTotal.toFixed(2)}`;
         });
 }
+
+function enableEdit(button) {
+    const row = button.closest('tr');
+    row.querySelectorAll('input').forEach(input => input.disabled = false);
+
+    button.classList.add('d-none');
+    button.nextElementSibling.classList.remove('d-none');
+}
+
+function saveEdit(button) {
+    const row = button.closest('tr');
+    const id = row.dataset.id;
+    const inputs = row.querySelectorAll('input');
+
+    fetch(`/products/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
+        body: JSON.stringify({
+            product_name: inputs[0].value,
+            quantity: inputs[1].value,
+            price: inputs[2].value
+        })
+    })
+    .then(() => fetchProducts());
+}
+
+function deleteProduct(id) {
+    if (!confirm('Delete this product?')) return;
+
+    fetch(`/products/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
+    .then(() => fetchProducts());
+}
+
